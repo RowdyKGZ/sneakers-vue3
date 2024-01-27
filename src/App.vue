@@ -14,6 +14,32 @@ const filters = reactive({
   searchQuery: ''
 })
 
+const fetchFavorites = async () => {
+  try {
+    const url = `https://611f67779771bf001785c902.mockapi.io/favorites`
+
+    const { data: favorites } = await axios.get(url)
+
+    items.value = items.value.map((item) => {
+      const favorite = favorites.find((favorite) => favorite.parentId == item.id)
+
+      if (!favorite) {
+        return item
+      }
+
+      return {
+        ...item,
+        isFavorite: true,
+        favoriteId: favorite.id
+      }
+    })
+
+    console.log(items.value)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const fetchItems = async () => {
   try {
     const params = {
@@ -28,15 +54,16 @@ const fetchItems = async () => {
 
     const { data } = await axios.get(url, { params })
 
-    items.value = data
-
-    console.log(items.value)
+    items.value = data.map((obj) => ({ ...obj, isFavorite: false, isAdded: false }))
   } catch (err) {
     console.log(err)
   }
 }
 
-onMounted(fetchItems)
+onMounted(async () => {
+  await fetchItems()
+  await fetchFavorites()
+})
 
 watch(filters, fetchItems)
 

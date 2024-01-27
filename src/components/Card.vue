@@ -2,7 +2,7 @@
 defineProps({
   title: String,
   imageUrl: String,
-  price: Number,
+  price: String,
   isFavorite: Boolean,
   isAdded: Boolean,
   onCLickAdd: Function,

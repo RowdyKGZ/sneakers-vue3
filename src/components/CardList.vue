@@ -14,8 +14,7 @@ defineProps({
       :image-url="item.img"
       :title="item.title"
       :price="item.price"
-      :is-favorite="item.favorite"
-      :isAdded="item.isAdded"
+      :is-favorite="item.isFavorite"
     />
   </div>
 </template>
