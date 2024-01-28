@@ -20,7 +20,8 @@ const addToFavorite = async (item) => {
       item.isFavorite = true
 
       const obj = {
-        parentId: item.id
+        item_id: item.id,
+        item
       }
 
       const { data } = await axios.post(
@@ -46,7 +47,7 @@ const fetchFavorites = async () => {
     )
 
     items.value = items.value.map((item) => {
-      const favorite = favorites.find((favorite) => favorite.parentId == item.id)
+      const favorite = favorites.find((favorite) => favorite.item_id == item.id)
 
       if (!favorite) {
         return item
@@ -93,7 +94,7 @@ const addToCart = (item) => {
   item.isAdded = true
 }
 
-const onClickAddPlus = async (item) => {
+const onClickAddPlus = (item) => {
   if (!item.isAdded) {
     addToCart(item)
   } else {
@@ -129,7 +130,7 @@ watch(carts, () => {
 })
 
 watch(filters, fetchItems)
-provide('addToFavorite', addToFavorite)
+provide('addToFavorite', { addToFavorite, onClickAddPlus })
 </script>
 
 <template>
