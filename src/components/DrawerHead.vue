@@ -1,6 +1,13 @@
+<script setup>
+import { inject } from 'vue'
+
+const toggleDrawer = inject('toggleDrawer')
+</script>
+
 <template>
   <div class="flex items-center gap-5 mb-4">
     <svg
+      @click="toggleDrawer"
       class="rotate-180 cursor-pointer opacity-30 hover:opacity-100 transition hover:-translate-x-1"
       width="16"
       height="14"

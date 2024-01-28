@@ -1,3 +1,11 @@
+<script setup>
+const emit = defineEmits(['toggleDrawer'])
+
+defineProps({
+  totalPrice: Number
+})
+</script>
+
 <template>
   <div>
     <header class="flex justify-between border-b border-slate-300 px-10 py-8">
@@ -10,9 +18,12 @@
       </div>
 
       <ul class="flex items-center gap-10">
-        <li class="flex items-center gap-3 cursor-pointer text-gray-500 hover:text-black">
+        <li
+          @click="() => emit('toggleDrawer')"
+          class="flex items-center gap-3 cursor-pointer text-gray-500 hover:text-black"
+        >
           <img src="/cart.svg" alt="Cart" />
-          <b>120$</b>
+          <b>{{ totalPrice }}$</b>
         </li>
 
         <li class="flex items-center gap-3 cursor-pointer text-gray-500 hover:text-black">
